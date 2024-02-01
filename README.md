@@ -20,3 +20,29 @@
 intuitlib.exceptions.AuthClientError: HTTP status 400, error message: b'{"error":"invalid_grant"}'
 ```
 - I think that you should get again `access_token` and `refresh_token` in link `https://developer.intuit.com/app/developer/playground`
+
+
+#### 6. Pivot table
+- Balance Sheet
+```
+SELECT Time, ReportName, ReportBasis, StartPeriod, EndPeriod, SummarizeColumnsBy, Currency, Field, conversion_name, conversion_value 
+FROM `radar-377104.api_connection.quickbook_balance_sheet`
+UNPIVOT(conversion_value FOR conversion_name IN 
+(Aug2023, Sep2023, Oct2023, Nov2023, Dec2023, Jan2024))
+```
+
+- Profit and Loss
+```
+SELECT Time, ReportName, ReportBasis, StartPeriod, EndPeriod, SummarizeColumnsBy, Currency, Field, conversion_name, conversion_value 
+FROM `radar-377104.api_connection.quickbook_profit_and_loss`
+UNPIVOT(conversion_value FOR conversion_name IN 
+(Aug2023, Sep2023, Oct2023, Nov2023, Dec2023, Jan2024, Total))
+```
+
+- Cash Flow
+```
+SELECT Time, ReportName, StartPeriod, EndPeriod, SummarizeColumnsBy, Currency, Field, conversion_name, conversion_value 
+FROM `radar-377104.api_connection.quickbook_cash_flow`
+UNPIVOT(conversion_value FOR conversion_name IN 
+(Aug2023, Sep2023, Oct2023, Nov2023, Dec2023, Jan2024, Total))
+```
